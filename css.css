@@ -26,3 +26,12 @@ button,input{
 .users_zone .one_user:nth-child(2n){
     background: #222;
 }
+
+@keyframes rainbow {
+    0%{
+        filter: hue-rotate(0deg);
+    }
+    100%{
+        filter: hue-rotate(360deg);
+    }
+}

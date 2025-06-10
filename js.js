@@ -18,17 +18,21 @@ function add_new_user(elem) {
             <span class="history"></span>`
         users_zone.prepend(div)
     }
+    local_add_new_user(name)
 }
 
 function delete_user(elem) {
     let temp = confirm('Точно удалить?')
+    let name = elem.parentNode.querySelector('.name').innerHTML
     if(temp){
         elem.parentNode.remove()
     }
-    
+    local_delete_user_by_name(name)
 }
+
 function add_sum(elem) {
     let user = elem.parentNode
+    let name = elem.parentNode.querySelector('.name').innerHTML
     let summ = user.querySelector('.summ').innerHTML.split(' ')[0]
     let entered_summ = user.querySelector('input').value
 
@@ -52,4 +56,7 @@ function add_sum(elem) {
     history.innerHTML = history.innerHTML + entered_summ + ' + '
 
     user.querySelector('input').value = 0
+
+    local_change_summ_for_user_by_name(name,summ+entered_summ)
+    local_change_history_for_user_by_name(name,history.innerHTML)
 }
