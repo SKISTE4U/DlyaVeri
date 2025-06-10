@@ -1,0 +1,28 @@
+*{
+    color: white;
+}
+body{
+    margin: 10px;
+    background: #333333;
+}
+fieldset{
+    max-width: 400px;
+}
+button,input{
+    color: black;
+}
+.users_zone{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.users_zone .one_user{
+    display: flex;
+    margin-top: 3px;
+    flex-direction: row;
+    gap: 10px;
+    padding: 5px;
+}
+.users_zone .one_user:nth-child(2n){
+    background: #222;
+}
