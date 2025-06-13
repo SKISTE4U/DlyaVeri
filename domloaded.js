@@ -60,14 +60,12 @@ let temp = _getUsers()
 for (let x = 0; x < temp.length; x++) {
     const element = temp[x];
     let users_zone = document.querySelector('.users_zone')
-    let div = document.createElement('div')
+    let div = document.createElement('tr')
     div.classList.add('one_user')
     div.innerHTML = `
-    <div class="name">${element['name']}</div>
-        <div class="summ">${element['summ']} р</div>
-        <input type="number" placeholder="Цена" value="0">
-        <button onclick="add_sum(this)">+</button>
-        <button onclick='delete_user(this)'>Удалить пользователя</button>
-        <span class="history">${element['history']}</span>`
+<td class="name">${element['name']}</td>
+<td class="summ">${element['summ']} р</td>
+<td><input type="number"><button onclick="add_sum(this)"><i class="fa fa-plus-circle" aria-hidden="true"></i></button><button onclick="delete_user(this)"><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></button></td>
+<td class="history">${element['history']}</td>`
     users_zone.prepend(div)
 }

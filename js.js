@@ -7,15 +7,17 @@ function add_new_user(elem) {
     }
     else{
         let users_zone = document.querySelector('.users_zone')
-        let div = document.createElement('div')
+        let div = document.createElement('tr')
         div.classList.add('one_user')
         div.innerHTML = `
-        <div class="name">${name}</div>
-            <div class="summ">0 р</div>
-            <input type="number" placeholder="Цена" value="0">
-            <button onclick="add_sum(this)">+</button>
-            <button onclick='delete_user(this)'>Удалить пользователя</button>
-            <span class="history"></span>`
+<td class="name">${name}</td>
+<td class="summ">0 р</td>
+<td>
+<input type="number">
+<button onclick="add_sum(this)"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+<button onclick="delete_user(this)"><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></button>
+</td>
+<td class="history"></td>`
         users_zone.prepend(div)
     }
     local_add_new_user(name)
@@ -23,16 +25,17 @@ function add_new_user(elem) {
 
 function delete_user(elem) {
     let temp = confirm('Точно удалить?')
-    let name = elem.parentNode.querySelector('.name').innerHTML
+    console.log(elem.parentNode)
+    let name = elem.parentNode.parentNode.querySelector('.name').innerHTML
     if(temp){
-        elem.parentNode.remove()
+        elem.parentNode.parentNode.remove()
     }
     local_delete_user_by_name(name)
 }
 
 function add_sum(elem) {
-    let user = elem.parentNode
-    let name = elem.parentNode.querySelector('.name').innerHTML
+    let user = elem.parentNode.parentNode
+    let name = elem.parentNode.parentNode.querySelector('.name').innerHTML
     let summ = user.querySelector('.summ').innerHTML.split(' ')[0]
     let entered_summ = user.querySelector('input').value
 
@@ -59,4 +62,17 @@ function add_sum(elem) {
 
     local_change_summ_for_user_by_name(name,summ+entered_summ)
     local_change_history_for_user_by_name(name,history.innerHTML)
+}
+
+function show_updates() {
+    alert(`13.06.2025:
+- Добавлена красивая анимация появления пользователей
+- Переделана верстка с div на table (Теперь все ровно по столбцам, а не как до этого прыгало)
+
+11.06.2025
+- Проект создан
+- Добавлена моя реклама c;
+- Прописана вся логика
+- Создана работа с localStorage
+        `)
 }

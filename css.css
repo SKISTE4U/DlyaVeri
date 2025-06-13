@@ -1,6 +1,9 @@
 *{
     color: white;
 }
+i{
+    color: black;
+}
 body{
     margin: 10px;
     background: #333333;
@@ -12,19 +15,33 @@ button,input{
     color: black;
 }
 .users_zone{
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     margin-top: 20px;
 }
 .users_zone .one_user{
-    display: flex;
-    margin-top: 3px;
-    flex-direction: row;
-    gap: 10px;
-    padding: 5px;
+    /* display: flex; */
+    /* margin-top: 3px; */
+    /* flex-direction: row; */
+    /* gap: 10px; */
+    animation: opacity_up 1s forwards;
+    transition: all 1s;
 }
 .users_zone .one_user:nth-child(2n){
     background: #222;
+}
+.users_zone{
+    /* max-width: 50%; */
+    table-layout: auto;
+    border-spacing: 0px 5px;
+}
+.one_user:nth-child(2), .summ{
+    white-space: nowrap;
+}
+.users_zone tr td{
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
 }
 
 @keyframes rainbow {
@@ -33,5 +50,17 @@ button,input{
     }
     100%{
         filter: hue-rotate(360deg);
+    }
+}
+@keyframes opacity_up {
+    0%{
+        opacity: 0;
+        filter: blur(30px);
+        transform: translateX(-100vw);
+    }
+    100%{
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateX(0);
     }
 }

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <script src="js.js"></script>
 <body>
     <div class="info">
-        <h1>Считалка для кассы (by <span style="animation: rainbow 10s infinite; color: red;">@SKISTE</span>)</h1><br>
+        <h1>Считалка для кассы (by <span style="animation: rainbow 10s infinite; color: red;">@SKISTE</span>)<h6 onclick="show_updates()" style="text-decoration: underline; cursor: pointer;">updated 13.06.2025</h6></h1><br>
         <span>Как пользоваться: Вбиваешь в этом поле имя и жмешь добавить, снизу у тебя появляется строка с этим человеком, вводишь сумму которую он потратил и жмешь на +</span>
+        <br><span>(Если это будут использовать на постоянку, я обижусь)</span>
     </div>
     <fieldset title="dffd">
         <legend>Добавить нового пользователя</legend>
@@ -19,7 +21,13 @@
         </div>
     </fieldset>
 
-    <div class="users_zone">
+    <table class="users_zone">
+            <!-- <tr class="one_user">
+                <td class="name">Имя</td>
+                <td class="summ">0 р</td>
+                <td><input type="number"><button><i class="fa fa-plus-circle" aria-hidden="true"></i></button><button><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></button></td>
+                <td class="history"></td>
+            </tr> -->
         <!-- <div class="one_user">
             <div class="name">Ольга</div>
             <div class="summ">0 р</div>
