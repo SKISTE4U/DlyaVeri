@@ -62,6 +62,7 @@ for (let x = 0; x < temp.length; x++) {
     let users_zone = document.querySelector('.users_zone')
     let div = document.createElement('tr')
     div.classList.add('one_user')
+    div.style.animation = 'opacity_up 1s forwards'
     div.innerHTML = `
 <td class="name">${element['name']}</td>
 <td class="summ">${element['summ']} р</td>
@@ -69,3 +70,14 @@ for (let x = 0; x < temp.length; x++) {
 <td class="history">${element['history']}</td>`
     users_zone.prepend(div)
 }
+
+setTimeout(function(){
+    console.log('remove_anims')
+    let temp1 = document.querySelectorAll('.one_user')
+    for (let x = 0; x < temp1.length; x++) {
+        const element = temp1[x];
+        element.style.animation = 'none'
+        void element.offsetWidth
+        console.log(element)
+    }
+},1000)

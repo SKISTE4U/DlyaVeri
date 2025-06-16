@@ -24,7 +24,8 @@ button,input{
     /* margin-top: 3px; */
     /* flex-direction: row; */
     /* gap: 10px; */
-    animation: opacity_up 1s forwards;
+    
+    transform-origin: 0px 0px;
     transition: all 1s;
 }
 .users_zone .one_user:nth-child(2n){
@@ -33,6 +34,7 @@ button,input{
 .users_zone{
     /* max-width: 50%; */
     table-layout: auto;
+    /* table-layout: fixed; */
     border-spacing: 0px 5px;
 }
 .one_user:nth-child(2), .summ{
@@ -57,10 +59,50 @@ button,input{
         opacity: 0;
         filter: blur(30px);
         transform: translateX(-100vw);
+        /* margin-right: (100vw); */
     }
     100%{
         opacity: 1;
         filter: blur(0px);
         transform: translateX(0);
+        /* margin-right: 0px; */
+    }
+}
+@keyframes opacity_low {
+    0%{
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateX(0);
+    }
+    100%{
+        opacity: 0;
+        filter: blur(30px);
+        transform: translateX(-100vw);
+    }
+}
+@keyframes marginUp {
+    0%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(var(--i));
+    }
+}
+
+.animScaleMINUS{
+    animation: scaleXminus .5s ease-in-out forwards;
+}
+.animScalePLUS{
+    animation: scaleXminus .5s ease-in-out forwards reverse;
+}
+
+@keyframes scaleXminus {
+    0%{
+        /* opacity: 1; */
+        transform: scaleX(1);
+    }
+    100%{
+        /* opacity: 0; */
+        transform: scaleX(0);
     }
 }
