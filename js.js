@@ -14,6 +14,7 @@ function add_new_user(elem) {
 <td class="summ">0 р</td>
 <td>
 <input type="number">
+<button onclick="add_from_price_list(this)"><i class="fa fa-bars" aria-hidden="true"></i></button>
 <button onclick="add_sum(this)"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
 <button onclick="delete_user(this)"><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></button>
 </td>
@@ -164,7 +165,10 @@ function add_sum(elem) {
 }
 
 function show_updates() {
-    alert(`16.06.2025:
+    alert(`17.06.2025:
+- Добавлена система прайс листа
+        
+16.06.2025:
 - Изменение потдверждения удаления пользователя
 - Ебануто красивая анимация удаления пользователя
         
@@ -185,4 +189,139 @@ function add_test_users(num) {
         document.querySelector('fieldset').querySelector('input').value = 'test'+x
         add_new_user(document.querySelector('fieldset').querySelector('button'))
     }
+}
+
+function show_price_list_settings(){
+    let price_list = document.querySelector('.price_list')
+    price_list.style.animation = 'blurScaleAndOpacity .5s forwards'
+    price_list.style.display = 'block'
+    price_list_paste_saved()
+}
+
+function close_price_list_settings(){
+    let price_list = document.querySelector('.price_list')
+    price_list.style.animation = 'none'
+    void price_list.offsetWidth
+    price_list.style.animation = 'blurScaleAndOpacity .5s forwards reverse'
+    setTimeout(function () {
+        price_list.style.display = 'none'
+    },500)
+}
+
+function delete_one_price(elem) {
+    // $.notify('Успешно удален один элемент из прайс листа','success')
+    let name = elem.parentNode.querySelector('input').value
+    console.log(name)
+    if(local_delete_one_price_list(name)){
+        elem.parentNode.remove()
+        $.notify('Успешно удалено','success')
+    }
+    else{
+        $.notify("Не найдено такое название в локальной базе данных\nПопробуйте перезайти в прайс лист")
+    }
+    
+}
+
+function price_list_paste_saved() {
+    let saved = _getPriceList()
+    console.log(saved)
+    let price_list = document.querySelector('.price_list').querySelector('.prices')
+    price_list.innerHTML = ''
+    for (let x = 0; x < saved.length; x++) {
+        const element = saved[x];
+        let key = Object.keys(element)[0]
+        let value = element[key]
+        let div = document.createElement('div')
+        div.classList.add('one_price')
+        div.innerHTML = `
+        <input type="text" placeholder="Название" value="${key}">
+        <input type="number" placeholder="Цена" value="${value}">
+        <button onclick="delete_one_price(this)" ><i class="fa fa-ban" aria-hidden="true"></i></button>
+        `
+        price_list.append(div)
+    }
+}
+
+function add_one_price() {
+    let price_list = document.querySelector('.price_list').querySelector('.prices')
+    // price_list.innerHTML = ''
+    var div = document.createElement('div')
+    div.classList.add('one_price')
+    div.innerHTML = `<input type="text" placeholder="Название">
+        <input type="number" placeholder="Цена">
+        <button onclick="delete_one_price(this)" ><i class="fa fa-ban" aria-hidden="true"></i></button>`
+    console.log(div)
+    price_list.prepend(div)
+}
+
+function save_prices() {
+    let new_prices = []
+    let all_prices = document.querySelectorAll('.one_price')
+    for (let x = 0; x < all_prices.length; x++) {
+        const element = all_prices[x];
+        let name = element.querySelectorAll('input')[0].value
+        let price = element.querySelectorAll('input')[1].value
+        if(name == ''){continue}
+        else if(price == ''){continue}
+        new_prices.push({[name]:price})
+    }
+    _setPriceList(new_prices)
+    $.notify('Успешно сохранено','success')
+    close_price_list_settings()
+}
+
+function add_from_price_list(elem) {
+    let plain = elem.getBoundingClientRect()
+    console.log(plain)
+    let div = document.createElement('div')
+    div.classList.add('added_price_list')
+    div.style.left = (plain.left + plain.width + 4) + 'px'
+    div.style.top = plain.top + 'px'
+    let prices = _getPriceList()
+    let name = elem.parentNode.parentNode.querySelector('.name').innerHTML
+    div.innerHTML+= '<span style="display:none;">'+name+'</span>'
+    for (let x = 0; x < prices.length; x++) {
+        const element = prices[x];
+        let key = Object.keys(element)[0]
+        let value = element[key]
+        div.innerHTML+= `<button onclick="add_price_sum(${value},'${name}',this)">${key} ${value}p</button>`
+    }
+    div.style.animation = 'blurScaleAndOpacity .5s forwards'
+    document.body.prepend(div)
+    let interval = setInterval(function(){
+        let temp = div.getBoundingClientRect().height
+        plain = elem.getBoundingClientRect()
+        div.style.top = plain.top - (temp / 2) + 'px'
+    },20)
+    setTimeout(function(){
+        div.style.animation = null
+        void div.offsetWidth
+        div.style.animation = 'blurScaleAndOpacity .5s forwards reverse'
+        setTimeout(function(){
+            clearInterval(interval)
+            div.remove()
+        },500)
+    },5000)
+}
+
+function add_price_sum(price,name,elem) {
+    console.log(price)
+    console.log(name)
+    let temp = document.querySelectorAll('.one_user')
+    for (let x = 0; x < temp.length; x++) {
+        const element = temp[x];
+        let namee = element.querySelector('.name').innerHTML
+        if(namee == name){
+            element.querySelector('input').value = price
+            element.querySelector('.fa-plus-circle').click()
+            break
+        }
+    }
+    let div = elem.parentNode
+    div.style.animation = null
+    void div.offsetWidth
+    div.style.animation = 'blurScaleAndOpacity .5s forwards reverse'
+    setTimeout(function(){
+        div.remove()
+    },500)
 }
