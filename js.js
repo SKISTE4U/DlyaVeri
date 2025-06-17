@@ -234,9 +234,9 @@ function price_list_paste_saved() {
         let div = document.createElement('div')
         div.classList.add('one_price')
         div.innerHTML = `
-        <input type="text" placeholder="Название" value="${key}">
-        <input type="number" placeholder="Цена" value="${value}">
-        <button onclick="delete_one_price(this)" ><i class="fa fa-ban" aria-hidden="true"></i></button>
+        <input type="text" placeholder="Название" value="${key}" style="--delay:${x/4}s">
+        <input type="number" placeholder="Цена" value="${value}" style="--delay:${(x/4)+.4}s">
+        <button onclick="delete_one_price(this)" style="--delay:${(x/4)+.8}s"><i class="fa fa-ban" aria-hidden="true"></i></button>
         `
         price_list.append(div)
     }
