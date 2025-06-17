@@ -1,5 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap'); */
+@font-face {
+  font-family: Shantell Sans;
+  src: url(ShantellSans.ttf);
+}
 
 *{
     color: white;
@@ -54,6 +57,37 @@ button,input{
     padding-left: 20px;
     padding-right: 20px;
     box-sizing: border-box;
+}
+
+.history{
+    position: relative;
+    white-space: normal;
+    user-select: none;
+}
+.history span{
+    position: relative;
+    z-index: 1;
+}
+.history span::before{
+    content:attr(data-naming);
+    position: absolute;
+    top: -0%;
+    text-align: center;
+    width: 100%;
+    background: #333;
+    padding: 2px;
+    box-sizing: border-box;
+    opacity: 0;
+    z-index: 999;
+    transition: all .3s;
+    font-size: 4px;
+    width: auto;
+    
+}
+.history span:hover::before{
+    opacity: 1;
+    top: -150%;
+    font-size: 16px;
 }
 
 @keyframes rainbow {
@@ -175,6 +209,7 @@ button,input{
     background: #333;
     transform-origin: 0px 0px;
     transition: all .1s;
+    z-index: 10;
     /* animation: blurScaleAndOpacity .5s forwards reverse; */
 }
 

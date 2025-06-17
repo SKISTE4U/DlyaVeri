@@ -133,7 +133,11 @@ function delete_user_confirmed() {
     
 }
 
-function add_sum(elem) {
+function add_sum(elem, tovar=null) {
+    if(tovar==null){
+        tovar = 'Вручную'
+    }
+    console.log(elem)
     let user = elem.parentNode.parentNode
     let name = elem.parentNode.parentNode.querySelector('.name').innerHTML
     let summ = user.querySelector('.summ').innerHTML.split(' ')[0]
@@ -156,7 +160,7 @@ function add_sum(elem) {
     user.querySelector('.summ').innerHTML = (summ+entered_summ)+' р'
 
     let history = user.querySelector('.history')
-    history.innerHTML = history.innerHTML + entered_summ + ' + '
+    history.innerHTML = history.innerHTML + '<span data-naming="'+tovar+'">' +entered_summ + ' + </span>'
 
     user.querySelector('input').value = 0
 
@@ -166,6 +170,7 @@ function add_sum(elem) {
 
 function show_updates() {
     alert(`17.06.2025:
+- Добавлено описание операции, за что было добавлена сумма
 - Добавлена система прайс листа
         
 16.06.2025:
@@ -284,7 +289,7 @@ function add_from_price_list(elem) {
         const element = prices[x];
         let key = Object.keys(element)[0]
         let value = element[key]
-        div.innerHTML+= `<button onclick="add_price_sum(${value},'${name}',this)">${key} ${value}p</button>`
+        div.innerHTML+= `<button onclick="add_price_sum(${value},'${name}',this)">${key} ${value}р</button>`
     }
     div.style.animation = 'blurScaleAndOpacity .5s forwards'
     document.body.prepend(div)
@@ -307,13 +312,14 @@ function add_from_price_list(elem) {
 function add_price_sum(price,name,elem) {
     console.log(price)
     console.log(name)
+    let tovar = elem.innerHTML.split(' ')[0]
     let temp = document.querySelectorAll('.one_user')
     for (let x = 0; x < temp.length; x++) {
         const element = temp[x];
         let namee = element.querySelector('.name').innerHTML
         if(namee == name){
             element.querySelector('input').value = price
-            element.querySelector('.fa-plus-circle').click()
+            add_sum(element.querySelector('.fa-plus-circle').parentNode,tovar)
             break
         }
     }
